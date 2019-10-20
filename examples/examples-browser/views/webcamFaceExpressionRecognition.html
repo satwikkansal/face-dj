@@ -18,8 +18,9 @@
 <body>
   <div id="navbar" style="display:none;"></div>
   <div id="waveform"></div>
-  <iframe src="http://172.16.26.240:1234"></iframe> 
-  <div class="center-content page-container">
+  <iframe src="http://172.16.26.240:1234" style="display: block;"></iframe>
+  <iframe src="http://172.16.27.6:1234"></iframe>
+  <div class="center-content page-container" style="position: absolute; top:100px;">
     <p>
       Create Music out of your feelings.
     </p>
@@ -261,7 +262,7 @@
           act("#ADFF2F", 'audio/Snare.wav', maxExpression)
           break;
         case "sad":
-          act("#5cd6d6", 'audio/Conga.wav', maxExpression)
+          act("#5cd6d6", 'audio/hit.wav', maxExpression)
           break;
         case "surprised":
           act("#ff7733", 'audio/Cymbal.wav', maxExpression)
