@@ -16,9 +16,12 @@
 </head>
 
 <body>
-  <div id="waveform"></div>
   <div id="navbar" style="display:none;"></div>
+  <div id="waveform"></div>
   <div class="center-content page-container">
+    <p>
+      Create Music out of your feelings.
+    </p>
     <div class="progress" id="loader">
       <div class="indeterminate"></div>
     </div>
@@ -150,6 +153,8 @@
   let previous = null;
   let forwardTimes = []
   let withBoxes = true
+  let beats = 0
+  let beatSkip = 2
   var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   var wavesurfer, context, processor;
 
@@ -202,9 +207,9 @@
   $(document).ready(function () {
     changeBackgroundColor("white");
     var sound = new Howl({
-      src: ['https://fes.sfo2.cdn.digitaloceanspaces.com/musicfiles/2019-06-14_-_Warm_Light_-_David_Fesliyan.mp3']
+      src: ['audio/background.mp3']
     });
-    sound.play();
+    // sound.play();
     // $("body").css("background-image", "url('https://www.metalsucks.net/wp-content/uploads/2015/02/chris-slade.jpg')");
   });
 
@@ -243,30 +248,30 @@
 
       var maxExpression = getMaxExpression(result.expressions);
 
-      console.log(maxExpression);
-
       switch (maxExpression) {
         case "angry":
-          act("red", 'audio/Tamb.wav')
+          act("red", 'audio/Tamb.wav', maxExpression)
           break;
         case "neutral":
-          act("#ffff33", 'audio/bongo.wav')
+          act("#ffff33", 'audio/bongo.wav', maxExpression)
           // $("body").css("background-image", "url('https://i.pinimg.com/originals/38/44/14/384414698dc11a5a416dda0bab0e649e.jpg')");
           break;
         case "happy":
-          act("#ADFF2F", 'audio/Snare.wav')
+          act("#ADFF2F", 'audio/Snare.wav', maxExpression)
           break;
         case "sad":
-          act("#5cd6d6", 'audio/Conga.wav')
+          act("#5cd6d6", 'audio/Conga.wav', maxExpression)
           break;
         case "surprised":
-          act("#ff7733", 'audio/Cymbal.wav')
+          act("#ff7733", 'audio/Cymbal.wav', maxExpression)
           console.log(":)")
           break;
         default:
           console.log("No match")
           break;
       }
+
+      previous = maxExpression;
       const resizedResult = faceapi.resizeResults(result, dims)
       const minConfidence = 0.05
       if (withBoxes) {
@@ -278,12 +283,20 @@
     setTimeout(() => onPlay(), 250)
   }
 
-  function act(color, soundPath) {
-    var sound = new Howl({
-      src: [soundPath]
-    });
+  function act(color, soundPath, current) {
+    if (current != previous) {
+      // play immediately
+      beats = 0;
+    } else {
+      beats += 1;
+    }
+    if (beats % beatSkip == 0) {
+      var sound = new Howl({
+        src: [soundPath]
+      });
+      sound.play();
+    }
     changeBackgroundColor(color);
-    sound.play();
   }
 
 
