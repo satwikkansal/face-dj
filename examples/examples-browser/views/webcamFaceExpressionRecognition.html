@@ -18,6 +18,7 @@
 <body>
   <div id="navbar" style="display:none;"></div>
   <div id="waveform"></div>
+  <iframe src="http://172.16.26.240:1234"></iframe> 
   <div class="center-content page-container">
     <p>
       Create Music out of your feelings.
@@ -182,7 +183,7 @@
           interact: false,
           cursorWidth: 0,
           audioContext: context || null,
-          barHeight: 2,
+          barHeight: 3,
           audioScriptProcessor: processor || null,
           plugins: [WaveSurfer.microphone.create()]
         });
@@ -253,7 +254,7 @@
           act("red", 'audio/Tamb.wav', maxExpression)
           break;
         case "neutral":
-          act("#ffff33", 'audio/bongo.wav', maxExpression)
+          act("#ffff33", 'audio/cbongo.wav', maxExpression)
           // $("body").css("background-image", "url('https://i.pinimg.com/originals/38/44/14/384414698dc11a5a416dda0bab0e649e.jpg')");
           break;
         case "happy":
@@ -280,7 +281,7 @@
       faceapi.draw.drawFaceExpressions(canvas, resizedResult, minConfidence)
     }
 
-    setTimeout(() => onPlay(), 250)
+    setTimeout(() => onPlay(), 200)
   }
 
   function act(color, soundPath, current) {
