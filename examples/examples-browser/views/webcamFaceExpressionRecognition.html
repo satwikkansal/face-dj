@@ -185,6 +185,7 @@
           cursorWidth: 0,
           audioContext: context || null,
           barHeight: 3,
+          height: 160,
           audioScriptProcessor: processor || null,
           plugins: [WaveSurfer.microphone.create()]
         });
@@ -209,9 +210,9 @@
   $(document).ready(function () {
     changeBackgroundColor("white");
     var sound = new Howl({
-      src: ['audio/background.mp3']
+      src: ['audio/clap.wav']
     });
-    // sound.play();
+    sound.play();
     // $("body").css("background-image", "url('https://www.metalsucks.net/wp-content/uploads/2015/02/chris-slade.jpg')");
   });
 
@@ -282,7 +283,7 @@
       faceapi.draw.drawFaceExpressions(canvas, resizedResult, minConfidence)
     }
 
-    setTimeout(() => onPlay(), 200)
+    setTimeout(() => onPlay(), 150)
   }
 
   function act(color, soundPath, current) {
